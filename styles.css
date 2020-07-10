@@ -43,8 +43,8 @@ body {
 .list-container,
 .add-item-container {
   border: 1px solid black;
-  /* width: 85%; */
-  width: 100%;
+  width: 85%;
+  /* width: 100%; */
 }
 
 .header-container {
