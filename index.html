@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/b18194bc59.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Shopping List</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <header class="header-container">
+        <h1 class="header">Shopping List</h1>
+        <p class="header-text">
+          <em>Create a shopping list before heading to the store!</em>
+        </p>
+        <div id="date"></div>
+      </header>
+      <div class="filter-reset">
+        <label class="reset-label"
+          >Reset Local Storage<i
+            class="fas fa-sync-alt delete-storage-button"
+          ></i
+        ></label>
+        <select id="filter-by">
+          <option value="byEdited">Sort by last edited</option>
+          <option value="byCreated">Sort by last created</option>
+          <option value="byAlphabetical">Sort by alphabetical</option>
+        </select>
+      </div>
+      <div class="list-container">
+        <ul class="list-items">
+          <li class="item">
+            <span class="check-square-item-span">
+              <i class="far fa-square empty-square"></i>
+              <!-- <i class="far fa-check-square"></i> -->
+              <p class="item-text">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Repudiandae, neque?
+              </p>
+            </span>
+            <span class="edit-remove-span">
+              <i class="fas fa-edit edit-button"></i>
+              <i class="fas fa-trash trash-button"></i>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="add-item-container">
+        <i class="fas fa-plus-circle add-button"></i>
+        <input
+          type="text"
+          class="add-item-input"
+          placeholder="Add a shopping item"
+        />
+      </div>
+    </div>
+  </body>
+</html>
