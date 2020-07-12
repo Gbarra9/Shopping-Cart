@@ -23,6 +23,8 @@
         <label class="reset-label"
           >Reset Local Storage<i
             class="fas fa-sync-alt delete-storage-button"
+            data-modal-target="
+            #delete-storage-modal"
           ></i
         ></label>
         <select id="filter-by">
@@ -58,6 +60,38 @@
         />
       </div>
     </div>
+
+    <!-- DELETE LOCAL STORAGE MODAL -->
+    <div
+      id="delete-storage-modal"
+      class="delete-storage-modal modal-screen-fixed modal"
+    >
+      <div class="delete-storage-modal-header modal-header">
+        <h1 class="modal-header-text">Delete Local Storage</h1>
+        <button data-close-button class="x-close-modal close-modal">
+          <i id="x-close-button" class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="delete-storage-modal-body">
+        <p class="modal-body-text">
+          All saved items will be deleted. Are you sure you want to delete the
+          data in your browser's local storage?
+        </p>
+      </div>
+      <div class="delete-storage-modal-buttons">
+        <button
+          data-close-button
+          class="delete-cancel-local-button close-modal"
+        >
+          Cancel
+        </button>
+        <button data-close-button class="delete-confirm-local-button">
+          Confirm
+        </button>
+      </div>
+    </div>
+    <div id="overlay"></div>
+    <!-- JavaSript -->
     <script src="uuidv4.js"></script>
     <script
       src="https://kit.fontawesome.com/b18194bc59.js"
