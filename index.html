@@ -7,6 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css" />
     <title>Shopping List</title>
   </head>
@@ -19,7 +20,7 @@
         </p>
         <div id="date"></div>
       </header>
-      <div class="filter-reset">
+      <div class="reset-container">
         <label class="reset-label"
           >Reset Local Storage<i
             class="fas fa-sync-alt delete-storage-button"
@@ -27,40 +28,48 @@
             #delete-storage-modal"
           ></i
         ></label>
-        <select id="filter-by">
+      </div>
+      <div class="filter-container">
+        <label class="filter-label" for="filter-by">
+          Filter Shopping Items 
+        <select id="filter-by" name="filter-options">
           <option value="byEdited">Sort by last edited</option>
           <option value="byCreated">Sort by last created</option>
           <option value="byAlphabetical">Sort by alphabetical</option>
         </select>
+      </label>
       </div>
       <div class="list-container">
         <ul class="list-items">
           <li class="item">
             <span class="check-square-item-span">
-              <i class="far fa-square empty-square"></i>
-              <!-- <i class="far fa-check-square"></i> -->
+              <i id="square-box" class="far fa-square"></i>
               <p class="item-text">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Repudiandae, neque?
               </p>
             </span>
             <span class="edit-remove-span">
-              <i class="fas fa-edit edit-button"></i>
-              <i class="fas fa-trash trash-button"></i>
+              <i data-modal-target="#edit-modal" class="fas fa-edit edit-button"></i>
+              <i data-modal-target="#delete-item-modal" class="fas fa-trash trash-button"></i>
             </span>
           </li>
         </ul>
       </div>
       <div class="add-item-container">
         <i class="fas fa-plus-circle add-button"></i>
+
         <input
           type="text"
           class="add-item-input"
           placeholder="Add a shopping item"
+          maxlength="18"
+          aria-label="add item input box"
         />
       </div>
     </div>
-
+    <!-- MODAL OVERLAY -->
+    <div id="overlay"></div>
     <!-- DELETE LOCAL STORAGE MODAL -->
     <div
       id="delete-storage-modal"
@@ -68,29 +77,95 @@
     >
       <div class="delete-storage-modal-header modal-header">
         <h1 class="modal-header-text">Delete Local Storage</h1>
-        <button data-close-button class="x-close-modal close-modal">
-          <i id="x-close-button" class="fas fa-times"></i>
+        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Modal">
+          <i id="x-close-delete-storage-modal-button" class="fas fa-times"></i>
         </button>
       </div>
-      <div class="delete-storage-modal-body">
+      <div class="delete-storage-modal-body modal-body">
         <p class="modal-body-text">
           All saved items will be deleted. Are you sure you want to delete the
           data in your browser's local storage?
         </p>
       </div>
-      <div class="delete-storage-modal-buttons">
+      <div class="delete-storage-modal-buttons modal-buttons">
         <button
           data-close-button
           class="delete-cancel-local-button close-modal"
+          aria-label="Cancel Button"
         >
           Cancel
         </button>
-        <button data-close-button class="delete-confirm-local-button">
+        <button data-close-button class="delete-confirm-local-button" aria-label="Confirm Button">
           Confirm
         </button>
       </div>
     </div>
-    <div id="overlay"></div>
+    <!-- EDIT ITEM MODAL  -->
+    <div
+      id="edit-modal"
+      class="edit-modal modal-screen-fixed modal"
+    >
+      <div class="edit-modal-header modal-header">
+        <h1 class="modal-header-text">Edit Shopping Item</h1>
+        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Button">
+          <i id="x-close-edit-modal-button" class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="edit-modal-body modal-body">
+        <p class="modal-body-text edit-modal-body-text">
+          <!-- Shopping item grab from local storage data -->
+          Edit the item: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, eos!
+        </p>
+        <label for="edit-shopping-item-input" class="edit-shopping-item-label">Edit Item:
+        <input id="edit-shopping-item-input" type="text" placeholder="Edit the shopping item">
+      </label>
+      </div>
+      <div class="edit-modal-buttons modal-buttons">
+        <button data-close-button class="edit-confirm-item-button" aria-label="Confirm Button">
+          Confirm
+        </button>
+        <button
+          data-close-button
+          class="edit-cancel-item-button close-modal"
+          aria-label="Cancel Button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- DELETE ITEM MODAL  -->
+    <div
+      id="delete-item-modal"
+      class="delete-item-modal modal-screen-fixed modal"
+    >
+      <div class="delete-item-modal-header modal-header">
+        <h1 class="modal-header-text">Delete Shopping Item</h1>
+        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Button">
+          <i id="x-close-delete-item-modal-button" class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="delete-item-modal-body modal-body">
+        <p class="delete-item-modal-body-text delete-modal-body-text">
+          Delete the Item: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, eos!
+        </p>
+        <p class="delete-item-modal-body-text delete-modal-body-text">
+          Confirm to delete the above item from the shopping list? 
+        </p>
+      </div>
+      <div class="delete-item-modal-buttons modal-buttons">
+        <button
+        data-close-button
+        class="delete-item-cancel-item-button close-modal"
+        aria-label="Cancel Button"
+        >
+        Cancel
+      </button>
+      <button data-close-button class="delete-item-confirm-item-button" aria-label="Confirm Button">
+        Confirm
+      </button>
+    </div>
+    
     <!-- JavaSript -->
     <script src="uuidv4.js"></script>
     <script
@@ -98,6 +173,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
+    <script src="functions.js"></script>
     <script src="shopping-list-app.js"></script>
   </body>
 </html>

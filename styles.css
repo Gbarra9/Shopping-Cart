@@ -1,7 +1,9 @@
 /* Colors Variables */
 :root {
-  --background-color: #fff;
-  --add-icon-color: #2c80ba;
+  --background-color: #c6c1cc;
+  --white-background-color: #fff;
+  --filter-background-color: #f6f6f6;
+  --blue-button-color: #2c80ba;
   --reset-icon-color: #ca3b2b;
   --gradient-background-color: linear-gradient(
     to right,
@@ -10,7 +12,7 @@
   );
   --white-font-color: #f7f7f7;
   --red-delete-background-color: #eb4d3c;
-  --modal-background-color: #fbe9e2;
+  /* --modal-background-color: #fbe9e2; */
   --dark-grey-background-color: #767b78;
   --dark-overlay-background-color: #00000080;
 }
@@ -44,11 +46,13 @@ body {
 
 /* MAIN CONTAINER'S CHILDREN CONTAINERS */
 .header-container,
-.filter-reset,
+.filter-container,
+.reset-container,
 .list-container,
 .add-item-container {
   border: 1px solid black;
   width: 85%;
+  padding: 0.5rem 1rem;
   /* width: 100%; */
 }
 
@@ -60,12 +64,12 @@ body {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 0.5rem 1rem;
+
   text-align: center;
   border-radius: 5px 5px 0 0;
 }
 .list-container {
-  background-color: var(--background-color);
+  background-color: var(--white-background-color);
 }
 
 /* HEADER CONTAINER */
@@ -80,14 +84,22 @@ body {
 }
 
 /* FILTER RESET CONTAINER */
-.filter-reset {
-  background-color: var(--background-color);
+.reset-container,
+.filter-container {
+  background-color: var(--white-background-color);
 }
 .reset-label {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0.5rem;
+  /* padding: 0.4rem 0; */
+}
+
+.filter-label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* padding: 0.4rem 0; */
 }
 
 .delete-storage-button {
@@ -102,13 +114,10 @@ body {
   width: 70%;
   border: 1px solid black;
   border-radius: 2px;
+  background-color: var(--filter-background-color);
 }
 
 /* ITEM LIST CONTAINER */
-
-.list-items {
-  margin: 0 5%;
-}
 
 .item {
   display: flex;
@@ -117,12 +126,16 @@ body {
 }
 
 .item-text {
-  margin: 0.4rem 0.5rem 0.4rem 0.5rem;
+  margin: 0.4rem 0.5rem 0.4rem 0.8rem;
 }
 
 .check-square-item-span {
   display: flex;
   align-items: center;
+}
+
+.strike-text {
+  text-decoration: line-through;
 }
 
 .edit-remove-span {
@@ -131,14 +144,19 @@ body {
 
 .edit-button {
   margin-right: 0.8rem;
+  cursor: pointer;
+}
+
+.trash-button {
+  cursor: pointer;
 }
 
 /* ADD ITEM SECTION */
 .add-item-container {
   display: flex;
   align-items: center;
-  padding: 0.2rem;
-  background-color: var(--background-color);
+  /* padding: 0.2rem; */
+  background-color: var(--white-background-color);
 }
 .add-item-input {
   width: 100%;
@@ -149,8 +167,9 @@ body {
 }
 
 .add-button {
-  color: var(--add-icon-color);
-  margin: 0.5rem;
+  color: var(--blue-button-color);
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 /* MODAL STYLING */
@@ -162,7 +181,7 @@ body {
   /* scale(0) hides the modal */
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
-  background-color: var(--modal-background-color);
+  background-color: var(--white-background-color);
   width: 370px;
   max-width: 80%;
   border: 1px solid black;
@@ -173,14 +192,22 @@ body {
 .modal-screen-fixed.active {
   transform: translate(-50%, -50%) scale(1);
 }
+.modal-header,
+.modal-buttons {
+  padding: 0.4rem 1rem;
+}
 
 .modal-header {
-  padding: 0.4rem 0.6rem;
   display: flex;
   position: relative;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
+}
+
+.modal-body {
+  border-bottom: 1px solid black;
+  padding: 0.8rem 1rem;
 }
 
 .modal-header-text {
@@ -196,25 +223,24 @@ body {
   outline: none;
 }
 
-#x-close-button {
+#x-close-delete-storage-modal-button,
+#x-close-edit-modal-button,
+#x-close-delete-item-modal-button {
   width: 100%;
   font-size: 1.4em;
   display: block;
 }
 
-.delete-storage-modal-body {
-  padding: 0.4rem 0.6rem 0.4rem;
-  border-bottom: 1px solid black;
-}
+/* .delete-storage-modal-body  */
 
 .modal-body-text {
   margin: 0 auto;
 }
 
-.delete-storage-modal-buttons {
-  padding: 0.4rem 0.6rem 0.4rem;
+.modal-buttons {
   display: flex;
   flex-direction: row-reverse;
+  padding: 0.4rem 1rem 0.4rem;
   margin: 0.4rem auto;
 }
 
@@ -238,6 +264,74 @@ body {
   color: var(--white-font-color);
   cursor: pointer;
 }
+
+/* START - EDIT ITEM MODAL */
+
+.edit-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-modal-body-text,
+.edit-shopping-item-label {
+  display: block;
+  padding: 0.5rem 0;
+  width: 60%;
+}
+
+#edit-shopping-item-input {
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.edit-confirm-item-button {
+  order: 1;
+  padding: 0.5rem;
+  background-color: var(--blue-button-color);
+  border: none;
+  color: var(--white-font-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-cancel-item-button {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  background-color: var(--dark-grey-background-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--white-font-color);
+  cursor: pointer;
+}
+/* END - EDIT ITEM MODAL */
+
+/* START - DELETE ITEM MODAL */
+
+.delete-item-confirm-item-button {
+  margin-left: 1rem;
+  order: -1;
+  padding: 0.5rem;
+  background-color: var(--red-delete-background-color);
+  border: none;
+  color: var(--white-font-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-item-cancel-item-button {
+  padding: 0.5rem;
+  background-color: var(--dark-grey-background-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--white-font-color);
+  cursor: pointer;
+}
+
+/* DELETE - DELETE ITEM MODAL */
+
+/* OVERLAY STYLES */
 
 #overlay {
   position: fixed;
