@@ -3,11 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="A basic shopping list app." />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
-    <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="/assets/icons/favicon.ico"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="styles.css" />
     <title>Shopping List</title>
   </head>
@@ -18,7 +23,6 @@
         <p class="header-text">
           <em>Create a shopping list before heading to the store!</em>
         </p>
-        <div id="date"></div>
       </header>
       <div class="reset-container">
         <label class="reset-label"
@@ -31,16 +35,25 @@
       </div>
       <div class="filter-container">
         <label class="filter-label" for="filter-by">
-          Filter Shopping Items 
-        <select id="filter-by" name="filter-options">
-          <option value="byEdited">Sort by last edited</option>
-          <option value="byCreated">Sort by last created</option>
-          <option value="byAlphabetical">Sort by alphabetical</option>
-        </select>
-      </label>
+          Filter Shopping Items
+          <select id="filter-by" name="filter-options">
+            <option value="byEdited">Sort by last edited</option>
+            <option value="byCreated">Sort by last created</option>
+            <option value="byAlphabetical">Sort by alphabetical</option>
+          </select>
+        </label>
       </div>
       <div class="list-container">
-        <ul class="list-items">
+        <div class="empty-shopping-list">
+          <i
+            id="shopping-cart-icon"
+            class="fas fa-shopping-cart"
+            aria-label="shopping cart icon"
+          ></i>
+          <h3 class="empty-shopping-list-header">Add your first item</h2>
+          <p class="empty-shopping-list-text">What do you plan to buy today?</p>
+        </div>
+        <!-- <ul class="list-items">
           <li class="item">
             <span class="check-square-item-span">
               <i id="square-box" class="far fa-square"></i>
@@ -50,23 +63,37 @@
               </p>
             </span>
             <span class="edit-remove-span">
-              <i data-modal-target="#edit-modal" class="fas fa-edit edit-button"></i>
-              <i data-modal-target="#delete-item-modal" class="fas fa-trash trash-button"></i>
+              <i
+                data-modal-target="#edit-modal"
+                class="fas fa-edit edit-button"
+              ></i>
+              <i
+                data-modal-target="#delete-item-modal"
+                class="fas fa-trash trash-button"
+              ></i>
             </span>
           </li>
-        </ul>
+        </ul> -->
       </div>
-      <div class="add-item-container">
-        <i class="fas fa-plus-circle add-button"></i>
 
+      <form id="submit-shopping-item" class="add-item-container">
+        <button
+          type="submit"
+          class="add-button add-shopping-item-input"
+          aria-label="add shopping item button"
+        >
+          <i class="fas fa-plus-circle"></i>
+        </button>
         <input
           type="text"
-          class="add-item-input"
+          name="addItemInputField"
+          class="add-item-input add-shopping-item-input"
           placeholder="Add a shopping item"
-          maxlength="18"
+          maxlength="20"
           aria-label="add item input box"
+          required
         />
-      </div>
+      </form>
     </div>
     <!-- MODAL OVERLAY -->
     <div id="overlay"></div>
@@ -77,7 +104,11 @@
     >
       <div class="delete-storage-modal-header modal-header">
         <h1 class="modal-header-text">Delete Local Storage</h1>
-        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Modal">
+        <button
+          data-close-button
+          class="x-close-modal close-modal"
+          aria-label="X Close Modal"
+        >
           <i id="x-close-delete-storage-modal-button" class="fas fa-times"></i>
         </button>
       </div>
@@ -95,33 +126,48 @@
         >
           Cancel
         </button>
-        <button data-close-button class="delete-confirm-local-button" aria-label="Confirm Button">
+        <button
+          data-close-button
+          class="delete-confirm-local-storage-button"
+          aria-label="Confirm Button"
+        >
           Confirm
         </button>
       </div>
     </div>
     <!-- EDIT ITEM MODAL  -->
-    <div
-      id="edit-modal"
-      class="edit-modal modal-screen-fixed modal"
-    >
+    <div id="edit-modal" class="edit-modal modal-screen-fixed modal">
       <div class="edit-modal-header modal-header">
         <h1 class="modal-header-text">Edit Shopping Item</h1>
-        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Button">
+        <button
+          data-close-button
+          class="x-close-modal close-modal"
+          aria-label="X Close Button"
+        >
           <i id="x-close-edit-modal-button" class="fas fa-times"></i>
         </button>
       </div>
       <div class="edit-modal-body modal-body">
         <p class="modal-body-text edit-modal-body-text">
           <!-- Shopping item grab from local storage data -->
-          Edit the item: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, eos!
+          Edit the item: Lorem, ipsum dolor sit amet consectetur adipisicing
+          elit. Illo, eos!
         </p>
-        <label for="edit-shopping-item-input" class="edit-shopping-item-label">Edit Item:
-        <input id="edit-shopping-item-input" type="text" placeholder="Edit the shopping item">
-      </label>
+        <label for="edit-shopping-item-input" class="edit-shopping-item-label"
+          >Edit Item:
+          <input
+            id="edit-shopping-item-input"
+            type="text"
+            placeholder="Edit the shopping item"
+          />
+        </label>
       </div>
       <div class="edit-modal-buttons modal-buttons">
-        <button data-close-button class="edit-confirm-item-button" aria-label="Confirm Button">
+        <button
+          data-close-button
+          class="edit-confirm-item-button"
+          aria-label="Confirm Button"
+        >
           Confirm
         </button>
         <button
@@ -141,39 +187,49 @@
     >
       <div class="delete-item-modal-header modal-header">
         <h1 class="modal-header-text">Delete Shopping Item</h1>
-        <button data-close-button class="x-close-modal close-modal" aria-label="X Close Button">
+        <button
+          data-close-button
+          class="x-close-modal close-modal"
+          aria-label="X Close Button"
+        >
           <i id="x-close-delete-item-modal-button" class="fas fa-times"></i>
         </button>
       </div>
       <div class="delete-item-modal-body modal-body">
         <p class="delete-item-modal-body-text delete-modal-body-text">
-          Delete the Item: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, eos!
+          Delete the Item: Lorem, ipsum dolor sit amet consectetur adipisicing
+          elit. Illo, eos!
         </p>
         <p class="delete-item-modal-body-text delete-modal-body-text">
-          Confirm to delete the above item from the shopping list? 
+          Confirm to delete the above item from the shopping list?
         </p>
       </div>
       <div class="delete-item-modal-buttons modal-buttons">
         <button
-        data-close-button
-        class="delete-item-cancel-item-button close-modal"
-        aria-label="Cancel Button"
+          data-close-button
+          class="delete-item-cancel-item-button close-modal"
+          aria-label="Cancel Button"
         >
-        Cancel
-      </button>
-      <button data-close-button class="delete-item-confirm-item-button" aria-label="Confirm Button">
-        Confirm
-      </button>
+          Cancel
+        </button>
+        <button
+          data-close-button
+          class="delete-item-confirm-item-button"
+          aria-label="Confirm Button"
+        >
+          Confirm
+        </button>
+      </div>
     </div>
-    
+
     <!-- JavaSript -->
     <script src="uuidv4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
     <script
       src="https://kit.fontawesome.com/b18194bc59.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
-    <script src="functions.js"></script>
+    <script src="app-functions.js"></script>
     <script src="shopping-list-app.js"></script>
   </body>
 </html>
