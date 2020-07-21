@@ -21,7 +21,9 @@ let listItems = getShoppingList();
 console.log(listItems);
 if (listItems.length > 0) {
   renderListItems(listItems);
+} else {
 }
+// TEST COMMENT
 // IMPORTANT CALLS FUNCTION RETRIEVING DATA FROM LOCAL STORAGE
 
 const submitShoppingItem = document.querySelector("#submit-shopping-item");
