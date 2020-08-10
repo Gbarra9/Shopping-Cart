@@ -21,9 +21,7 @@ let listItems = getShoppingList();
 console.log(listItems);
 if (listItems.length > 0) {
   renderListItems(listItems);
-} else {
 }
-// TEST COMMENT
 // IMPORTANT CALLS FUNCTION RETRIEVING DATA FROM LOCAL STORAGE
 
 const submitShoppingItem = document.querySelector("#submit-shopping-item");
@@ -66,21 +64,23 @@ if (squareBox !== null) {
 
 submitShoppingItem.addEventListener("submit", (event) => {
   event.preventDefault();
-  const inputValue = event.target.elements.addItemInputField.value.trim();
   const id = uuidv4();
+  const text = event.target.elements.addItemInputField.value.trim();
   const timeStamp = moment().valueOf();
   // console.log(event.target.elements.addItemInputField.value);
   // console.log(timeStamp);
-  listItems.push({
-    id: id,
-    text: inputValue,
-    checked: false,
-    createdAt: timeStamp,
-    updatedAt: timeStamp,
-  });
+
+  // listItems.push({
+  //   id: id,
+  //   text: inputValue,
+  //   checked: false,
+  //   createdAt: timeStamp,
+  //   updatedAt: timeStamp,
+  // });
+
+  addItem(id, text, timeStamp);
   console.log(listItems);
   saveItems(listItems);
-  renderListItems(listItems);
   event.target.elements.addItemInputField.value = "";
 });
 
@@ -94,7 +94,7 @@ openModalButtons.forEach((button) => {
     openModal(modal);
   });
 });
-console.log(closeModalButtons);
+// console.log(closeModalButtons);
 
 closeModalButtons.forEach((button) => {
   button.addEventListener("click", () => {
