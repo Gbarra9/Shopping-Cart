@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 6 version
+*/
+
 /* COLOR VARIALBES */
 :root {
   --background-color: #c6c1cc;
@@ -20,6 +27,7 @@
 *,
 *::before,
 *::after {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -41,9 +49,18 @@ body {
 /* MAIN CONTAINER STYLING */
 .main-container {
   /* border: 1px solid black; */
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   border-radius: 5px 5px 5px 5px;
   margin: 5rem 0.8rem 0;
@@ -94,14 +111,25 @@ body {
   background-color: var(--white-background-color);
 }
 .reset-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   /* padding: 0.4rem 0; */
 }
 
 .filter-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   text-align: center;
   /* padding: 0.4rem 0; */
@@ -126,8 +154,14 @@ body {
 /* ITEM LIST CONTAINER */
 
 .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -136,7 +170,11 @@ body {
 }
 
 .check-square-item-span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -145,6 +183,8 @@ body {
 }
 
 .edit-remove-span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -159,7 +199,11 @@ body {
 
 /* ADD ITEM SECTION */
 .add-item-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: var(--white-background-color);
   border-bottom: 1.5px solid black;
@@ -187,9 +231,18 @@ body {
 }
 
 .empty-shopping-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   text-align: center;
 }
@@ -213,7 +266,11 @@ body {
   top: 50%;
   left: 50%;
   /* scale(0) hides the modal */
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  -ms-transform: translate(-50%, -50%) scale(0);
   transform: translate(-50%, -50%) scale(0);
+  -webkit-transition: 200ms ease-in-out;
+  -o-transition: 200ms ease-in-out;
   transition: 200ms ease-in-out;
   background-color: var(--white-background-color);
   width: 370px;
@@ -224,6 +281,8 @@ body {
 }
 
 .modal-screen-fixed.active {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
   transform: translate(-50%, -50%) scale(1);
 }
 .modal-header,
@@ -232,9 +291,15 @@ body {
 }
 
 .modal-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   border-bottom: 1px solid black;
 }
@@ -272,13 +337,20 @@ body {
 }
 
 .modal-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
   flex-direction: row-reverse;
   padding: 0.4rem 1rem 0.4rem;
   margin: 0.4rem auto;
 }
 
 .delete-confirm-local-storage-button {
+  -webkit-box-ordinal-group: 0;
+  -ms-flex-order: -1;
   order: -1;
   margin-left: 1rem;
   padding: 0.5rem;
@@ -326,7 +398,7 @@ body {
 
 @media screen and (min-width: 450px) {
   .main-container {
-    margin: 10vh autovw;
+    margin: 10vh 10vw;
   }
   .header-container,
   .filter-container,
