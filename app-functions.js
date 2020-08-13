@@ -14,17 +14,10 @@ const getShopList = function () {
 
 /* START - RENDER SHOPPING LIST  */
 
-const loadShopList = function (listArr, filterBy) {
+const loadShopList = function (listArr) {
   listElement.innerHTML = "";
-  // debugger;
   listArr.forEach((item) => {
-    addToList(
-      item.itemText,
-      item.itemId,
-      item.completed,
-      item.trash,
-      item.createdAt
-    );
+    addToList(item.itemText, item.itemId, item.completed);
   });
 };
 
@@ -52,6 +45,71 @@ function checkEmptyList(listItems) {
     listContainer.prepend(emptyList);
   }
 }
+
+/* END - CHECK IF LOCAL STORAGE IS EMPTY AND RENDER SHOPPING CART  */
+
+/* START - ADD ITEM TO END OF EXISTING LIST  */
+
+function addToList(itemText, itemId, completed) {
+  const done = completed ? check : uncheck;
+  const line = completed ? strikeText : "";
+
+  if (emptyShoppingList) {
+    emptyShoppingList.remove();
+  }
+
+  const listItemContent = `
+  <li id=${itemId} class="item" task=""> 
+    <span class="check-square-item-span" task="">
+      <i class="far ${done}" task="complete"></i>
+      <p class="item-text ${line}" task="">${itemText}</p>
+      </span>
+      <span class="edit-remove-span" task="">
+      <i
+      class="fas fa-trash trash-button" task="delete"
+      ></i>
+    </span>
+  </li>
+  `;
+  const position = "beforeend";
+  listElement.insertAdjacentHTML(position, listItemContent);
+}
+
+/* START - FIND ITEM IN LIST, TOGGLE COMPLETED ITEM, SAVE TO LOCAL STORAGE */
+
+function completedItem(element) {
+  element.classList.toggle(check);
+  element.classList.toggle(uncheck);
+  element.parentNode.querySelector(".item-text").classList.toggle(strikeText);
+  const findItemIndex = listItems.findIndex((item) => {
+    return item.itemId === element.parentNode.parentNode.id;
+  });
+
+  listItems[findItemIndex].completed
+    ? (listItems[findItemIndex].completed = false)
+    : (listItems[findItemIndex].completed = true);
+  localStorage.setItem("List", JSON.stringify(listItems));
+}
+
+/* END - FIND ITEM IN LIST, TOGGLE COMPLETED ITEM, SAVE TO LOCAL STORAGE */
+
+/* START - FIND ITEM IN LIST, DELETE ITEM FROM LIST, SAVE TO LOCAL STORAGE */
+
+function removeItem(element) {
+  // List item Element with id = element.parentNode.parentNode.parentNode;
+  // Trash button = element.parentNode.parentNode;
+  element.parentNode.parentNode.parentNode.removeChild(
+    element.parentNode.parentNode
+  );
+  const findItemIndex = listItems.findIndex((item) => {
+    return item.itemId === element.parentNode.parentNode.id;
+  });
+  listItems.splice(findItemIndex, 1);
+  localStorage.setItem("List", JSON.stringify(listItems));
+  checkEmptyList(listItems);
+}
+
+/* END - FIND ITEM IN LIST, DELETE ITEM FROM LIST, SAVE TO LOCAL STORAGE */
 
 /*  START - POPUP MODAL FUNCTIONS */
 function openModal(modal) {
@@ -104,48 +162,35 @@ deleteLocalStorageConfirmButton.addEventListener("click", (event) => {
 /* START - SORT ITEMS FUNCTION */
 
 const sortItems = function (list, sortBy) {
-  // debugger;
   if (sortBy === "byCreated") {
-    // debugger;
     return list.sort((a, b) => {
       if (a.createdAt < b.createdAt) {
-        // debugger;
         return -1;
       } else if (a.createdAt > b.createdAt) {
-        // debugger;
         return 1;
       } else return 0;
     });
   } else if (sortBy === "byAlphabetical") {
     return list.sort((a, b) => {
-      // debugger;
       if (a.itemText.toLowerCase() < b.itemText.toLowerCase()) {
-        // debugger;
         return -1;
       } else if (a.itemText.toLowerCase() > b.itemText.toLowerCase()) {
-        // debugger;
         return 1;
       } else return 0;
     });
   } else if (sortBy === "byCompleted") {
     return list.sort((a, b) => {
-      // debugger;
       if (Number(a.completed) < Number(b.completed)) {
-        // debugger;
         return 1;
       } else if (Number(a.completed) > Number(b.completed)) {
-        // debugger;
         return -1;
       } else return 0;
     });
   } else if (sortBy === "byUncompleted") {
     return list.sort((a, b) => {
-      // debugger;
       if (Number(a.completed) < Number(b.completed)) {
-        // debugger;
         return -1;
       } else if (Number(a.completed) > Number(b.completed)) {
-        // debugger;
         return 1;
       } else return 0;
     });

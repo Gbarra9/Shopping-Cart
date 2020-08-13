@@ -17,7 +17,7 @@ let listItems = getShopList();
 let filterBy = { sortby: "byCreated" };
 
 if (listItems.length) {
-  loadShopList(listItems, filterBy);
+  loadShopList(listItems);
 }
 
 // IMPORTANT CALLS FUNCTION RETRIEVING DATA FROM LOCAL STORAGE
@@ -37,11 +37,7 @@ const openModalButtons = document.querySelectorAll("[data-modal-target]");
 const closeModalButtons = document.querySelectorAll("[data-close-button]");
 const overlay = document.getElementById("overlay");
 
-/* START - CHECKBOX */
-
-/* END - CHECKBOX */
-
-/* START -  CRUD OPERATION FOR LOCAL STORAGE */
+/* START -  SUBMIT ITEM TO LIST */
 
 submitShoppingItem.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -51,82 +47,25 @@ submitShoppingItem.addEventListener("submit", (event) => {
   if (text) {
     const id = uuidv4();
     const timeStamp = moment().valueOf();
-    console.log(text, id, timeStamp);
     listItems.push({
       itemText: text,
       itemId: id,
       completed: false,
-      trash: false,
       createdAt: timeStamp,
     });
     localStorage.setItem("List", JSON.stringify(listItems));
     if (listItems.length && emptyShoppingList) {
       emptyShoppingList.remove();
     }
-    addToList(text, id, false, false, timeStamp, timeStamp);
+    addToList(text, id, false, timeStamp);
   }
 
   event.target.elements.addItemInputField.value = "";
 });
 
-function addToList(itemText, itemId, completed, trash, createdAt) {
-  const done = completed ? check : uncheck;
-  const line = completed ? strikeText : "";
+/* END -  SUBMIT ITEM TO LIST */
 
-  if (emptyShoppingList) {
-    emptyShoppingList.remove();
-  }
-
-  // If trash is true do not run code below
-  if (trash) {
-    return;
-  }
-
-  const listItemContent = `
-  <li id=${itemId} class="item" task=""> 
-    <span class="check-square-item-span" task="">
-      <i class="far ${done}" task="complete"></i>
-      <p class="item-text ${line}" task="">${itemText}</p>
-      </span>
-      <span class="edit-remove-span" task="">
-      <i
-      class="fas fa-trash trash-button" task="delete"
-      ></i>
-    </span>
-  </li>
-  `;
-  const position = "beforeend";
-  listElement.insertAdjacentHTML(position, listItemContent);
-}
-
-function completedItem(element) {
-  element.classList.toggle(check);
-  element.classList.toggle(uncheck);
-  element.parentNode.querySelector(".item-text").classList.toggle(strikeText);
-  const findItemIndex = listItems.findIndex((item) => {
-    return item.itemId === element.parentNode.parentNode.id;
-  });
-
-  listItems[findItemIndex].completed
-    ? (listItems[findItemIndex].completed = false)
-    : (listItems[findItemIndex].completed = true);
-  localStorage.setItem("List", JSON.stringify(listItems));
-  console.log(listItems);
-}
-
-function removeItem(element) {
-  // List item Element with id = element.parentNode.parentNode.parentNode;
-  // Trash button = element.parentNode.parentNode;
-  element.parentNode.parentNode.parentNode.removeChild(
-    element.parentNode.parentNode
-  );
-  const findItemIndex = listItems.findIndex((item) => {
-    return item.itemId === element.parentNode.parentNode.id;
-  });
-  listItems.splice(findItemIndex, 1);
-  localStorage.setItem("List", JSON.stringify(listItems));
-  checkEmptyList(listItems);
-}
+/* START - CLICK EVENT HANDLER FOR CHECKBOX AND TRASH */
 
 listElement.addEventListener("click", (event) => {
   let element = event.target;
@@ -138,14 +77,17 @@ listElement.addEventListener("click", (event) => {
   }
 });
 
+/* END - CLICK EVENT HANDLER FOR CHECKBOX AND TRASH */
+
+/* START - CHANGE EVENT HANDLER FOR SELECT FILTER DROPDOWN */
+
 filterList.addEventListener("change", (event) => {
   filterBy.sortby = event.target.value;
-  console.log(filterBy);
   const filterListItem = sortItems(listItems, filterBy.sortby);
   return loadShopList(filterListItem);
 });
 
-/* END - ONCLICK BUTTON CRUD OPERATION FOR LOCAL STORAGE */
+/* END - CHANGE EVENT HANDLER FOR SELECT FILTER DROPDOWN */
 
 /*  START - POPUP MODAL  */
 
@@ -153,7 +95,6 @@ filterList.addEventListener("change", (event) => {
 
 openModalButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(button.dataset);
     const modal = document.querySelector(button.dataset.modalTarget);
     openModal(modal);
   });
