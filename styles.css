@@ -59,7 +59,7 @@ body {
 .header-container {
   color: var(--white-font-color);
   background-image: var(--gradient-background-color),
-    url("/assets/images/northern-lights-through-sky.jpg");
+    url("../assets/images/northern-lights-through-sky.jpg");
   height: auto;
   background-position: center center;
   background-size: cover;
