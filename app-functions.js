@@ -1,101 +1,57 @@
 "use strict";
 /* START - RETRIEVE LOCAL STORAGE SHOPPING ITEMS  */
 
-// const getShoppingList = () => {
-//   const itemsJSON = localStorage.getItem("list");
-//   try {
-//     return itemsJSON ? JSON.parse(itemsJSON) : [];
-//   } catch {
-//     return [];
-//   }
-// };
+const getShopList = function () {
+  const itemsJSON = localStorage.getItem("List");
+  try {
+    return itemsJSON ? JSON.parse(itemsJSON) : [];
+  } catch {
+    return [];
+  }
+};
 
 /* END - RETRIEVE LOCAL STORAGE SHOPPING ITEMS */
 
-/* START - SAVE TO LOCAL STORAGE AND STRINGIFY OBJECT */
+/* START - RENDER SHOPPING LIST  */
 
-// const saveItems = (items) => {
-//   localStorage.setItem("list", JSON.stringify(items));
-// };
+const loadShopList = function (listArr, filterBy) {
+  listElement.innerHTML = "";
+  // debugger;
+  listArr.forEach((item) => {
+    addToList(
+      item.itemText,
+      item.itemId,
+      item.completed,
+      item.trash,
+      item.createdAt
+    );
+  });
+};
 
-/* END - SAVE TO LOCAL STORAGE */
+/* END - RENDER SHOPPING LIST  */
 
-/*  START - RENDER LIST ITEMS */
-// TODO: RENDER LIST BY GENERATING DOM
+/* START - CHECK IF LOCAL STORAGE IS EMPTY AND RENDER SHOPPING CART  */
 
-// const renderListItems = (items) => {
-//   console.log(items);
-//   console.log("list items not empty");
-
-//   const emptyShoppingList = document.querySelector(".empty-shopping-list");
-//   if (emptyShoppingList) {
-//     emptyShoppingList.remove();
-//   }
-
-//   items.forEach((item) => {
-//     const unorderedList = document.querySelector(".list-items");
-//     const listItem = document.createElement("li");
-//     listItem.classList.add("item");
-//     listItem.id = item.id;
-
-//     listItem.innerHTML = `
-//     <span class="check-square-item-span">
-//     <i id="square-box" class="far fa-square ${item.checked}"></i>
-//     <i class="far fa-check-square"></i>
-//     <p class="item-text">${item.text}</p>
-//     </span>
-//     <span class="edit-remove-span">
-//     <i
-//     class="fas fa-trash trash-button"
-//     ></i>
-//     </span>`;
-
-//     unorderedList.appendChild(listItem);
-//     const trashButton = document.querySelector(".trash-button");
-//     trashButton.addEventListener("click", (event) => {
-//       console.log(event.target.value);
-//     });
-//   });
-// };
-
-/*  END - RENDER LIST ITEMS */
-
-// function addItem(id, text, timeStamp) {
-//   const item = {
-//     id: id,
-//     text: text,
-//     checked: false,
-//     createdAt: timeStamp,
-//     updatedAt: timeStamp,
-//   };
-//   listItems.push(item);
-//   generateItemDOM(item);
-// }
-
-// function generateItemDOM(item) {
-//
-//   if (emptyShoppingList) {
-//     emptyShoppingList.remove();
-//   }
-
-//   const unorderedList = document.querySelector(".list-items");
-//   const listItem = document.createElement("li");
-//   listItem.classList.add("item");
-//   listItem.id = item.id;
-
-//   listItem.innerHTML = `
-//   <span class="check-square-item-span">
-//   <i id="square-box" class="far fa-square ${item.checked}"></i>
-//   <p class="item-text">${item.text}</p>
-//   </span>
-//   <span class="edit-remove-span">
-//   <i
-//   data-modal-target="#delete-item-modal"
-//   class="fas fa-trash trash-button"
-//   ></i>
-//   </span>`;
-//   unorderedList.appendChild(listItem);
-// }
+function checkEmptyList(listItems) {
+  if (listItems.length < 1) {
+    const listContainer = document.querySelector(".list-container");
+    localStorage.removeItem("List");
+    const emptyList = document.createElement("div");
+    const listItem = document.querySelector(".list-items");
+    listItem.innerHTML = "";
+    emptyList.className = "empty-shopping-list";
+    emptyList.innerHTML = `
+  <i
+    id="shopping-cart-icon"
+    class="fas fa-shopping-cart"
+    aria-label="shopping cart icon"
+  ></i>
+  <h3 class="empty-shopping-list-header">Add your first item</h2>
+  <p class="empty-shopping-list-text">What do you plan to buy today?</p>
+`;
+    listContainer.prepend(emptyList);
+  }
+}
 
 /*  START - POPUP MODAL FUNCTIONS */
 function openModal(modal) {
@@ -145,24 +101,56 @@ deleteLocalStorageConfirmButton.addEventListener("click", (event) => {
 
 /* END - DELETE LOCAL STORAGE */
 
+/* START - SORT ITEMS FUNCTION */
+
 const sortItems = function (list, sortBy) {
-  debugger;
+  // debugger;
   if (sortBy === "byCreated") {
+    // debugger;
     return list.sort((a, b) => {
       if (a.createdAt < b.createdAt) {
+        // debugger;
         return -1;
       } else if (a.createdAt > b.createdAt) {
+        // debugger;
         return 1;
       } else return 0;
     });
   } else if (sortBy === "byAlphabetical") {
     return list.sort((a, b) => {
-      if (a.text.toLowerCase() < b.text.toLowerCase()) {
+      // debugger;
+      if (a.itemText.toLowerCase() < b.itemText.toLowerCase()) {
+        // debugger;
         return -1;
-      } else if (a.text.toLowerCase() > b.text.toLowerCase()) {
+      } else if (a.itemText.toLowerCase() > b.itemText.toLowerCase()) {
+        // debugger;
+        return 1;
+      } else return 0;
+    });
+  } else if (sortBy === "byCompleted") {
+    return list.sort((a, b) => {
+      // debugger;
+      if (Number(a.completed) < Number(b.completed)) {
+        // debugger;
+        return 1;
+      } else if (Number(a.completed) > Number(b.completed)) {
+        // debugger;
+        return -1;
+      } else return 0;
+    });
+  } else if (sortBy === "byUncompleted") {
+    return list.sort((a, b) => {
+      // debugger;
+      if (Number(a.completed) < Number(b.completed)) {
+        // debugger;
+        return -1;
+      } else if (Number(a.completed) > Number(b.completed)) {
+        // debugger;
         return 1;
       } else return 0;
     });
   }
   return list;
 };
+
+/* END - SORT ITEMS FUNCTION */

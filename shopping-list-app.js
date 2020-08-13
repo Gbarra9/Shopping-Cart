@@ -1,18 +1,7 @@
 "use strict";
 /* START - DECLARE GLOBAL VARIABLES */
 const headerContainer = document.querySelector(".header-container");
-
-const deleteLocalStorage = document.querySelector(
-  ".delete-confirm-local-storage-button"
-);
-
-const editConfirmItemButton = document.querySelector(
-  ".edit-confirm-item-button"
-);
-
-const deleteConfirmItemButton = document.querySelector(
-  ".delete-item-confirm-item-button"
-);
+const submitShoppingItem = document.querySelector("#submit-shopping-item");
 
 const filterList = document.querySelector("#filter-by");
 
@@ -23,71 +12,17 @@ const listElement = document.querySelector(".list-items");
 const emptyShoppingList = document.querySelector(".empty-shopping-list");
 
 // IMPORTANT CALLS FUNCTION RETRIEVING DATA FROM LOCAL STORAGE
-// let listItems = getShoppingList();
-// console.log(listItems);
-// if (listItems.length > 0) {
-//   renderListItems(listItems);
-// }
-
-const getShopList = function () {
-  const itemsJSON = localStorage.getItem("List");
-  try {
-    return itemsJSON ? JSON.parse(itemsJSON) : [];
-  } catch {
-    return [];
-  }
-};
 
 let listItems = getShopList();
 let filterBy = { sortby: "byCreated" };
 
-const loadShopList = function (listArr, filterBy) {
-  let list = sortItems(listArr, filterBy);
-
-  list.forEach((item) => {
-    addToList(
-      item.itemText,
-      item.itemId,
-      item.completed,
-      item.trash,
-      item.createdAt
-    );
-  });
-};
-
 if (listItems.length) {
-  loadShopList(listItems);
-}
-
-function checkEmptyList(listItems) {
-  if (listItems.length < 1) {
-    const listContainer = document.querySelector(".list-container");
-    localStorage.removeItem("List");
-    const emptyList = document.createElement("div");
-    const listItem = document.querySelector(".list-items");
-    listItem.innerHTML = "";
-    emptyList.className = "empty-shopping-list";
-    emptyList.innerHTML = `
-  <i
-    id="shopping-cart-icon"
-    class="fas fa-shopping-cart"
-    aria-label="shopping cart icon"
-  ></i>
-  <h3 class="empty-shopping-list-header">Add your first item</h2>
-  <p class="empty-shopping-list-text">What do you plan to buy today?</p>
-`;
-    listContainer.prepend(emptyList);
-  }
+  loadShopList(listItems, filterBy);
 }
 
 // IMPORTANT CALLS FUNCTION RETRIEVING DATA FROM LOCAL STORAGE
 
-const submitShoppingItem = document.querySelector("#submit-shopping-item");
-
 /* END - DECLARE GLOBAL VARIABLES */
-
-// TODO: HOOK UP STRIKETHROUGH VIA UUID
-// const itemText = document.querySelector(".item-text");
 
 /* START - MOMENT JS */
 const dateText = document.createElement("p");
@@ -111,17 +46,6 @@ const overlay = document.getElementById("overlay");
 submitShoppingItem.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = event.target.elements.addItemInputField.value.trim();
-  // console.log(event.target.elements.addItemInputField.value);
-
-  // listItems.push({
-  //   id: id,
-  //   text: inputValue,
-  //   checked: false,
-  //   createdAt: timeStamp,
-  //   updatedAt: timeStamp,
-  // });
-
-  // addItem(id, text, timeStamp);
   const emptyShoppingList = document.querySelector(".empty-shopping-list");
 
   if (text) {
@@ -142,8 +66,6 @@ submitShoppingItem.addEventListener("submit", (event) => {
     addToList(text, id, false, false, timeStamp, timeStamp);
   }
 
-  console.log(listItems);
-  // saveItems(listItems);
   event.target.elements.addItemInputField.value = "";
 });
 
@@ -184,7 +106,6 @@ function completedItem(element) {
   const findItemIndex = listItems.findIndex((item) => {
     return item.itemId === element.parentNode.parentNode.id;
   });
-  // listItems[element.id].completed ? false : true;
 
   listItems[findItemIndex].completed
     ? (listItems[findItemIndex].completed = false)
@@ -194,21 +115,17 @@ function completedItem(element) {
 }
 
 function removeItem(element) {
-  console.log(element.parentNode.parentNode.parentNode);
-  console.log(element.parentNode.parentNode);
+  // List item Element with id = element.parentNode.parentNode.parentNode;
+  // Trash button = element.parentNode.parentNode;
   element.parentNode.parentNode.parentNode.removeChild(
     element.parentNode.parentNode
   );
-  console.log(element);
   const findItemIndex = listItems.findIndex((item) => {
     return item.itemId === element.parentNode.parentNode.id;
   });
-  listItems[findItemIndex].trash = true;
   listItems.splice(findItemIndex, 1);
   localStorage.setItem("List", JSON.stringify(listItems));
-  console.log(listItems);
   checkEmptyList(listItems);
-  // listItems[element.id].trash = true;
 }
 
 listElement.addEventListener("click", (event) => {
@@ -222,14 +139,18 @@ listElement.addEventListener("click", (event) => {
 });
 
 filterList.addEventListener("change", (event) => {
-  console.log(event.target.value);
   filterBy.sortby = event.target.value;
   console.log(filterBy);
+  const filterListItem = sortItems(listItems, filterBy.sortby);
+  return loadShopList(filterListItem);
 });
 
 /* END - ONCLICK BUTTON CRUD OPERATION FOR LOCAL STORAGE */
 
+/*  START - POPUP MODAL  */
+
 // Add Click Event to All elements with Modal Target and passes value to openModal Function
+
 openModalButtons.forEach((button) => {
   button.addEventListener("click", () => {
     console.log(button.dataset);
@@ -247,10 +168,10 @@ closeModalButtons.forEach((button) => {
 });
 
 overlay.addEventListener("click", () => {
-  console.log("test");
   const modals = document.querySelectorAll(".modal.active");
-  console.log(modals);
   modals.forEach((modal) => {
     closeModal(modal);
   });
 });
+
+/*  END - POPUP MODAL  */
