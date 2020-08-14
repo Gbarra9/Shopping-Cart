@@ -2,7 +2,9 @@
 A Shopping Cart using CRUD operations with local storage
 
 ## Github Pages Link
-<a href="https://gbarra9.github.io/Shopping-Cart/" target="_blank">Visit App</a>
+<a href="https://gbarra9.github.io/Shopping-Cart/" target="_blank"><p>Visit App<p></a>
+
+![Shopping List App Screenshot](https://user-images.githubusercontent.com/33293205/90210812-10490600-ddbd-11ea-9b62-171f168d9af2.png)
 
 ## Purpose
 
