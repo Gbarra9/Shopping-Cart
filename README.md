@@ -14,7 +14,7 @@ Have a visual and functional web app working for Firefox and Chrome browsers.
 ## Third-Party Modules
 <strong>Moment.js</strong>
 <br/>
-https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"
+https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js
 <br/><br/>
 <strong>uuidv4</strong>
 <br/>
