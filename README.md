@@ -11,6 +11,10 @@ A Shopping Cart using CRUD operations with local storage
 To create a Shopping Cart App to practice CRUD operations using a browser's local storage. To finish a project implementing vanilla HTML, CSS and JavaScript. 
 Have a visual and functional web app working for Firefox and Chrome browsers.
 
+## Bundler
+
+Use Webpack to install add Third-Party Modules
+
 ## Third-Party Modules
 <strong>Moment.js</strong>
 <br/>
@@ -19,6 +23,9 @@ https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.
 <strong>uuidv4</strong>
 <br/>
 https://www.npmjs.com/package/uuidv4
+<br/>
+<strong>Babel Loader</strong>
+https://webpack.js.org/loaders/babel-loader/
 
 ## Learning Objectives 
 
@@ -31,6 +38,11 @@ https://www.npmjs.com/package/uuidv4
 <li>Utilize moment.js to obtain current date and pass a number value to an item object for list filtering purposes</li>
 <li>Utilize uuidv4.js to pass an unique number to an list item in an array and target a specific item based on unique number assigned</li>
 </ul>
+
+## Note To Self for Github Pages 
+
+Refer to this link when serving static files on github pages in the situation where the root index.html is in a subfolder.  
+https://gist.github.com/cobyism/4730490
 
 ## Known Problems
 
