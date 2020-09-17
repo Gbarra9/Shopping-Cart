@@ -23,8 +23,9 @@ https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.
 <strong>uuidv4</strong>
 <br/>
 https://www.npmjs.com/package/uuidv4
-<br/>
+<br/><br/>
 <strong>Babel Loader</strong>
+<br/>
 https://webpack.js.org/loaders/babel-loader/
 
 ## Learning Objectives 
