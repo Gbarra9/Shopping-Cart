@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="A basic shopping list app." />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/icons/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="assets/styles/styles.css" />
+    <title>Shopping List</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <header class="header-container">
+        <h1 class="header">Shopping List</h1>
+        <p class="header-text">
+          <em>Create a shopping list before heading to the store!</em>
+        </p>
+      </header>
+      <div class="reset-container">
+        <label class="reset-label"
+          >Reset Local Storage<i
+            class="fas fa-sync-alt delete-storage-button"
+            data-modal-target="
+            #delete-storage-modal"
+          ></i
+        ></label>
+      </div>
+      <div class="filter-container">
+        <label class="filter-label" for="filter-by">
+          Filter Shopping Items
+          <select id="filter-by" name="filter-options">
+            <option value="byCreated">Sort by Created</option>
+            <option value="byAlphabetical">Sort by Alphabetical</option>
+            <option value="byCompleted">Sort by Completed</option>
+            <option value="byUncompleted">Sort by Not Completed</option>
+
+          </select>
+        </label>
+      </div>
+      <div class="list-container">
+        <div class="empty-shopping-list">
+          <i
+            id="shopping-cart-icon"
+            class="fas fa-shopping-cart"
+            aria-label="shopping cart icon"
+          ></i>
+          <h3 class="empty-shopping-list-header">Add your first item</h2>
+          <p class="empty-shopping-list-text">What do you plan to buy today?</p>
+        </div>
+        <ul class="list-items">
+        </ul>
+      </div>
+
+      <form id="submit-shopping-item" class="add-item-container">
+        <button
+          type="submit"
+          class="add-button add-shopping-item-input"
+          aria-label="add shopping item button"
+        >
+          <i class="fas fa-plus-circle"></i>
+        </button>
+        <input
+          type="text"
+          name="addItemInputField"
+          class="add-item-input add-shopping-item-input"
+          placeholder="Add a shopping item"
+          maxlength="20"
+          aria-label="add item input box"
+          required
+        />
+      </form>
+    </div>
+    <!-- MODAL OVERLAY -->
+    <div id="overlay"></div>
+    <!-- DELETE LOCAL STORAGE MODAL -->
+    <div
+      id="delete-storage-modal"
+      class="delete-storage-modal modal-screen-fixed modal"
+    >
+      <div class="delete-storage-modal-header modal-header">
+        <h1 class="modal-header-text">Delete Local Storage</h1>
+        <button
+          data-close-button
+          class="x-close-modal close-modal"
+          aria-label="X Close Modal"
+        >
+          <i id="x-close-delete-storage-modal-button" class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="delete-storage-modal-body modal-body">
+        <p class="modal-body-text">
+          All saved items will be deleted. Are you sure you want to delete the
+          data in your browser's local storage?
+        </p>
+      </div>
+      <div class="delete-storage-modal-buttons modal-buttons">
+        <button
+          data-close-button
+          class="delete-cancel-local-button close-modal"
+          aria-label="Cancel Button"
+        >
+          Cancel
+        </button>
+        <button
+          data-close-button
+          class="delete-confirm-local-storage-button"
+          aria-label="Confirm Button"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+
+    <!-- JavaSript -->
+    <script
+      src="https://kit.fontawesome.com/b18194bc59.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./scripts/bundle.js"></script>
+  </body>
+</html>
