@@ -1,0 +1,35 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "A Shopping Cart using CRUD operations with local storage",
+  "main": "app-functions.js",
+  "scripts": {
+    "dev-server": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gbarra9/Shopping-Cart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gbarra9/Shopping-Cart/issues"
+  },
+  "homepage": "https://github.com/Gbarra9/Shopping-Cart#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "live-server": "^1.2.1",
+    "moment": "^2.22.1",
+    "uuid": "^3.2.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
